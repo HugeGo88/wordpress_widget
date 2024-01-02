@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:wordpress_widget/wordpress_widget.dart';
 
 void main() {
@@ -14,13 +15,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     TabItem homePage = TabItem(
       "Aktuelles",
-      const Icon(Icons.home),
+      Icon(PlatformIcons(context).home),
       const StartTab(),
     );
     TabItem eventPage = TabItem(
-      "Termine",
-      const Icon(Icons.calendar_month),
-      const Placeholder(),
+      "Berichte",
+      Icon(PlatformIcons(context).collections),
+      const PostsTab(),
     );
     List<TabItem> tabs = [homePage, eventPage];
     return WordPress(

@@ -7,7 +7,7 @@ const String posts = "Neueste Berichte";
 const String url = "https://www.ejwbesigheim.de/";
 const String baseUrl = '$url$restUrlPrefix/wp/v2/';
 
-const int featuredCategoryId = 41;
+const int featuredCategoryId = 1;
 const String featuredCategoryName = 'Wichtiges';
 
 const int groupMenuId = 121;

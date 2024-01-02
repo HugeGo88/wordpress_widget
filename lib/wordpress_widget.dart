@@ -20,6 +20,7 @@ import 'src/utils/constants.dart';
 
 part 'src/tab_item.dart';
 part 'src/pages/start_tab.dart';
+part 'src/pages/posts_tab.dart';
 part 'src/pages/detail_elements/html_content.dart';
 part 'src/pages/detail_elements/post_detail_data.dart';
 part 'src/pages/post_detail.dart';
@@ -27,6 +28,8 @@ part 'src/widgets/chached_image.dart';
 part 'src/widgets/feature_list.dart';
 part 'src/widgets/feature_list_item.dart';
 part 'src/widgets/loading_fullscreen.dart';
+part 'src/widgets/post_list.dart';
+part 'src/widgets/post_list_item.dart';
 part 'src/models/post_entity.dart';
 part 'src/models/post_embedded.dart';
 part 'src/models/feature_image.dart';
