@@ -1,12 +1,38 @@
 library wordpress_widget;
 
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'dart:convert';
+import 'dart:io';
 
-part 'src/home_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:html/parser.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'src/utils/constants.dart';
+
 part 'src/tab_item.dart';
+part 'src/pages/start_tab.dart';
+part 'src/pages/detail_elements/html_content.dart';
+part 'src/pages/detail_elements/post_detail_data.dart';
+part 'src/pages/post_detail.dart';
+part 'src/widgets/chached_image.dart';
+part 'src/widgets/feature_list.dart';
+part 'src/widgets/feature_list_item.dart';
+part 'src/widgets/loading_fullscreen.dart';
+part 'src/models/post_entity.dart';
+part 'src/models/post_embedded.dart';
+part 'src/models/feature_image.dart';
+part 'src/models/post_embedded_author.dart';
+part 'src/models/post_category.dart';
+part 'src/network/wp_api.dart';
 
 final titles = ['Aktuelles', 'Termine', 'Berichte', 'Gruppen', 'Über'];
 

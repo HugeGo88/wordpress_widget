@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wordpress_widget/wordpress_widget.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     TabItem homePage = TabItem(
       "Aktuelles",
       const Icon(Icons.home),
-      const Placeholder(),
+      const StartTab(),
     );
     TabItem eventPage = TabItem(
       "Termine",
@@ -24,8 +25,30 @@ class MyApp extends StatelessWidget {
     List<TabItem> tabs = [homePage, eventPage];
     return WordPress(
       appTitle: "Example App",
-      darkTheme: ThemeData.dark(),
-      lightTheme: ThemeData.light(),
+      lightTheme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0xfffcb900),
+        brightness: Brightness.light,
+        cupertinoOverrideTheme:
+            const CupertinoThemeData(primaryColor: Color(0xfffcb900)),
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: const Color(0xfffcb900),
+        colorScheme: const ColorScheme.dark(background: Colors.black),
+        scaffoldBackgroundColor: Colors.black,
+        bottomAppBarTheme: const BottomAppBarTheme(color: Colors.black),
+        cupertinoOverrideTheme: const CupertinoThemeData(
+          primaryColor: Color(0xfffcb900),
+          barBackgroundColor: Colors.black,
+          primaryContrastingColor: Color(0xfffcb900),
+          scaffoldBackgroundColor: Colors.black,
+          brightness: Brightness.dark,
+          textTheme: CupertinoTextThemeData(
+            textStyle: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
       tabs: tabs,
     );
   }
