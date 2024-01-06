@@ -7,8 +7,8 @@ class EventEntity {
   late DateTime startDate;
   late DateTime endDate;
   late String image;
-  late int imageWidth;
-  late int imageHeight;
+  int? imageWidth;
+  int? imageHeight;
   late bool allDay;
   late String url;
   late String venue = "";

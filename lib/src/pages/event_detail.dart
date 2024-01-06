@@ -9,34 +9,41 @@ class EventDetail extends StatefulWidget {
 }
 
 class _EventDetailState extends State<EventDetail> {
-  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   Future<void> _onShare(context, EventEntity event) async {
     final box = context.findRenderObject() as RenderBox?;
-    final urlImage = event.image;
-    final url = Uri.parse(urlImage);
-    final response = await http.get(url);
-    final bytes = response.bodyBytes;
+    if (event.image != "") {
+      final urlImage = event.image;
+      final url = Uri.parse(urlImage);
+      final response = await http.get(url);
+      final bytes = response.bodyBytes;
 
-    final temp = await getTemporaryDirectory();
-    final path = '${temp.path}/image.jpg';
-    File(path).writeAsBytesSync(bytes);
+      final temp = await getTemporaryDirectory();
+      final path = '${temp.path}/image.jpg';
+      File(path).writeAsBytesSync(bytes);
 
-    await Share.shareXFiles(
-      [XFile(path)],
-      text: event.url,
-      subject: event.title,
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-    );
+      await Share.shareXFiles(
+        [XFile(path)],
+        text: event.url,
+        subject: event.title,
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      );
+    } else {
+      await Share.share(
+        event.url,
+        subject: event.title,
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    double imageHeight = widget.event.imageHeight.toDouble();
-    double imageWidth = widget.event.imageWidth.toDouble();
+    double? imageHeight = widget.event.imageHeight?.toDouble();
+    double? imageWidth = widget.event.imageWidth?.toDouble();
     double? actualHeight;
-    actualHeight =
-        imageHeight * (MediaQuery.of(context).size.width / imageWidth);
-
+    if (imageHeight != null && imageWidth != null) {
+      actualHeight =
+          imageHeight * (MediaQuery.of(context).size.width / imageWidth);
+    }
     final controller1 = ScrollController();
     final controller2 = ScrollController();
     Size size = MediaQuery.of(context).size;
@@ -53,12 +60,14 @@ class _EventDetailState extends State<EventDetail> {
               return PlatformIconButton(
                 icon: Icon(PlatformIcons(context).share),
                 onPressed: () async {
-                  await analytics.logEvent(
-                    name: "button_tracked",
-                    parameters: {
-                      "button_name": "ShareEvent",
-                    },
-                  );
+                  try {
+                    await FirebaseAnalytics.instance.logEvent(
+                      name: "button_tracked",
+                      parameters: {
+                        "button_name": "ShareEvent",
+                      },
+                    );
+                  } catch (_) {}
                   _onShare(context, widget.event);
                 },
               );
@@ -75,14 +84,15 @@ class _EventDetailState extends State<EventDetail> {
                     physics: const BouncingScrollPhysics(),
                     child: Column(
                       children: [
-                        Hero(
-                          tag: widget.event.image,
-                          child: CachedImage(
-                            widget.event.image,
-                            height: actualHeight,
-                            width: size.width,
+                        if (widget.event.image != "")
+                          Hero(
+                            tag: widget.event.image,
+                            child: CachedImage(
+                              widget.event.image,
+                              height: actualHeight,
+                              width: size.width,
+                            ),
                           ),
-                        ),
                         EventDetailData(widget.event),
                         HtmlContent(widget.event.description),
                       ],
@@ -97,13 +107,14 @@ class _EventDetailState extends State<EventDetail> {
                           width: size.width / 3,
                           child: Column(
                             children: <Widget>[
-                              Hero(
-                                tag: widget.event.image,
-                                child: CachedImage(
-                                  widget.event.image,
-                                  width: size.width,
+                              if (widget.event.image != "")
+                                Hero(
+                                  tag: widget.event.image,
+                                  child: CachedImage(
+                                    widget.event.image,
+                                    width: size.width,
+                                  ),
                                 ),
-                              ),
                               EventDetailData(widget.event),
                             ],
                           ),

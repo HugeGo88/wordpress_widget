@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       const PostsTab(),
     );
     TabItem eventsPage = TabItem(
-      "Berichte",
+      "Termine",
       const Icon(CupertinoIcons.calendar),
       const EventsTab(),
     );

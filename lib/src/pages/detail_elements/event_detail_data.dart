@@ -9,7 +9,9 @@ class EventDetailData extends StatefulWidget {
 }
 
 class _EventDetailDataState extends State<EventDetailData> {
-  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  late FirebaseAnalytics? analytics;
+  bool useAnalytics = true;
+
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
       url,
@@ -25,6 +27,16 @@ class _EventDetailDataState extends State<EventDetailData> {
     } else {
       return DateFormat.yMd('de').format(start);
     }
+  }
+
+  @override
+  void initState() {
+    try {
+      analytics = FirebaseAnalytics.instance;
+    } catch (_) {
+      useAnalytics = false;
+    }
+    super.initState();
   }
 
   Event buildEvent({Recurrence? recurrence}) {
@@ -85,12 +97,14 @@ class _EventDetailDataState extends State<EventDetailData> {
               materialIcon: const Icon(Icons.edit_calendar_outlined),
               cupertinoIcon: const Icon(CupertinoIcons.calendar_badge_plus),
               onPressed: () async {
-                await analytics.logEvent(
-                  name: "button_tracked",
-                  parameters: {
-                    "button_name": "AddCalendar",
-                  },
-                );
+                if (useAnalytics) {
+                  await analytics?.logEvent(
+                    name: "button_tracked",
+                    parameters: {
+                      "button_name": "AddCalendar",
+                    },
+                  );
+                }
                 Add2Calendar.addEvent2Cal(
                   buildEvent(),
                 );
@@ -128,12 +142,14 @@ class _EventDetailDataState extends State<EventDetailData> {
                 cupertinoIcon: const Icon(CupertinoIcons.map),
                 materialIcon: const Icon(Icons.map_outlined),
                 onPressed: () async {
-                  await analytics.logEvent(
-                    name: "button_tracked",
-                    parameters: {
-                      "button_name": "OpenMap",
-                    },
-                  );
+                  if (useAnalytics) {
+                    await analytics?.logEvent(
+                      name: "button_tracked",
+                      parameters: {
+                        "button_name": "OpenMap",
+                      },
+                    );
+                  }
                   MapsLauncher.launchQuery(widget.event.address);
                 },
               ),
@@ -199,12 +215,14 @@ class _EventDetailDataState extends State<EventDetailData> {
                         PlatformIcons(context).add,
                       ),
                       onPressed: () async {
-                        await analytics.logEvent(
-                          name: "button_tracked",
-                          parameters: {
-                            "button_name": "AddTicket",
-                          },
-                        );
+                        if (useAnalytics) {
+                          await analytics?.logEvent(
+                            name: "button_tracked",
+                            parameters: {
+                              "button_name": "AddTicket",
+                            },
+                          );
+                        }
                         _launchInBrowser(
                           Uri.parse("${widget.event.url}/#rsvp-now"),
                         );
