@@ -35,42 +35,42 @@ class WpApi {
     return posts;
   }
 
-  // static Future<List<EventEntity>> getEventList(
-  //     {int category = 0, int page = 1}) async {
-  //   List<EventEntity> events = [];
-  //   try {
-  //     String extra = category != 0 ? '&categories=$category' : '';
-  //     var urll = '${url}wp-json/tribe/events/v1/events?_embed&page=$page$extra';
-  //     dynamic response = await http.get(Uri.parse(urll));
-  //     Map<String, dynamic> map = json.decode(response.body);
-  //     dynamic data = map["events"];
-  //     if (data != null) {
-  //       for (var v in (data as List)) {
-  //         events.add(EventEntity.fromJson(v));
-  //       }
-  //     }
-  //   } catch (e) {
-  //     //TODO Handle No Internet Response
-  //   }
-  //   return events;
-  // }
+  static Future<List<EventEntity>> getEventList(
+      {int category = 0, int page = 1}) async {
+    List<EventEntity> events = [];
+    try {
+      String extra = category != 0 ? '&categories=$category' : '';
+      var urll = '${url}wp-json/tribe/events/v1/events?_embed&page=$page$extra';
+      dynamic response = await http.get(Uri.parse(urll));
+      Map<String, dynamic> map = json.decode(response.body);
+      dynamic data = map["events"];
+      if (data != null) {
+        for (var v in (data as List)) {
+          events.add(EventEntity.fromJson(v));
+        }
+      }
+    } catch (e) {
+      //TODO Handle No Internet Response
+    }
+    return events;
+  }
 
-  // static Future<List<TicketEntity>> getTicketList({int page = 1}) async {
-  //   List<TicketEntity> tickets = [];
-  //   try {
-  //     var urll = '${url}wp-json/wp/v2/tribe_rsvp_tickets?page=$page';
-  //     dynamic response = await http.get(Uri.parse(urll));
-  //     dynamic json = jsonDecode(response.body);
-  //     if (json != null) {
-  //       for (var v in (json as List)) {
-  //         tickets.add(TicketEntity.fromJson(v));
-  //       }
-  //     }
-  //   } catch (e) {
-  //     //TODO Handle No Internet Response
-  //   }
-  //   return tickets;
-  // }
+  static Future<List<TicketEntity>> getTicketList({int page = 1}) async {
+    List<TicketEntity> tickets = [];
+    try {
+      var urll = '${url}wp-json/wp/v2/tribe_rsvp_tickets?page=$page';
+      dynamic response = await http.get(Uri.parse(urll));
+      dynamic json = jsonDecode(response.body);
+      if (json != null) {
+        for (var v in (json as List)) {
+          tickets.add(TicketEntity.fromJson(v));
+        }
+      }
+    } catch (e) {
+      //TODO Handle No Internet Response
+    }
+    return tickets;
+  }
 
   // static Future<List<NavigationItemEntitiy>> getNavigationItemList(
   //     {required int id}) async {

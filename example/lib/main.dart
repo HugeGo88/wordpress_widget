@@ -18,12 +18,17 @@ class MyApp extends StatelessWidget {
       Icon(PlatformIcons(context).home),
       const StartTab(),
     );
-    TabItem eventPage = TabItem(
+    TabItem postPage = TabItem(
       "Berichte",
       Icon(PlatformIcons(context).collections),
       const PostsTab(),
     );
-    List<TabItem> tabs = [homePage, eventPage];
+    TabItem eventsPage = TabItem(
+      "Berichte",
+      const Icon(CupertinoIcons.calendar),
+      const EventsTab(),
+    );
+    List<TabItem> tabs = [homePage, postPage, eventsPage];
     return WordPress(
       appTitle: "Example App",
       lightTheme: ThemeData(
