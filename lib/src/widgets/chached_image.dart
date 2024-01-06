@@ -15,28 +15,26 @@ class CachedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return url == ''
-        ? const Placeholder()
-        // ? Image.asset(
-        //     'images/logo.png',
-        //     width: width,
-        //     fit: BoxFit.fitWidth,
-        // )
+        ? Image.asset(
+            'images/logo.png',
+            width: width,
+            fit: BoxFit.fitWidth,
+          )
         : CachedNetworkImage(
             width: width,
             height: height,
             imageUrl: url,
             fit: fit,
-            // placeholder: (_, __) => Image.asset(
-            //   'images/logo.png',
-            //   width: width,
-            //   height: height,
-            //   fit: BoxFit.fitWidth,
-            // ),
-            // errorWidget: (_, __, ___) => Image.asset(
-            //   'images/logo.png',
-            //   width: width,
-            //   fit: BoxFit.fitWidth,
-            // ),
+            placeholder: (_, __) => Image.asset(
+              'images/logo.png',
+              width: width,
+              fit: BoxFit.fitWidth,
+            ),
+            errorWidget: (_, __, ___) => Image.asset(
+              'images/logo.png',
+              width: width,
+              fit: BoxFit.fitWidth,
+            ),
           );
   }
 }
