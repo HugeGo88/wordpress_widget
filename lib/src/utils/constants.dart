@@ -1,9 +1,3 @@
-const String appTitle = "CVJM Walheim";
-
-const String important = "Wichtiges";
-const String events = "Anstehende Termine";
-const String posts = "Neueste Berichte";
-
 const String url = "https://www.ejwbesigheim.de/";
 const String baseUrl = '$url$restUrlPrefix/wp/v2/';
 
